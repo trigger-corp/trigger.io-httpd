@@ -1,0 +1,16 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+		"port": {
+			"required": false,
+			"type": "number",
+			"description": "Port to launch httpd on. Leave empty to automatically choose a free port (recommended). Set to 0 to disable httpd."
+		},
+		"url": {
+			"required": false,
+			"type": "string",
+			"description": "URL to use as initial app page. Leave empty for default. (recommended)."
+		}
+	}
+}

@@ -1,0 +1,6 @@
+[
+	{ "do": { "add_ios_system_framework": "CFNetwork.framework" } },
+	{ "do": { "add_ios_system_framework": "MobileCoreServices.framework" } },
+	{ "do": { "add_ios_system_framework": "libz.dylib" } }
+
+]
