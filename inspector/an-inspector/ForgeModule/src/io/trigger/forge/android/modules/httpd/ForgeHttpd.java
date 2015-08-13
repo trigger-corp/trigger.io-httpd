@@ -121,7 +121,7 @@ public class ForgeHttpd extends NanoHTTPD {
 		// Get asset file descriptor - TODO this logic should really live in ForgeCore
 		Context context = ForgeApp.getActivity();
 		AssetFileDescriptor fileDescriptor = null;
-		if (uri.getPath().startsWith("favicon.ico")) {
+		if (uri.getPath().startsWith("/favicon.ico")) {
 			return NOT_FOUND();
 
 		} else if (uri.getPath().startsWith("/forge")) {
