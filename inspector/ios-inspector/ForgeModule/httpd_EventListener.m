@@ -12,7 +12,7 @@ static int port = 46665;
 
 + (int) findFreePort {
     struct sockaddr_in addr;
-    socklen_t len = sizeof(addr);
+    memset(&addr, 0, sizeof(addr));
     addr.sin_port = 0;
     inet_aton("0.0.0.0", &addr.sin_addr);
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -24,6 +24,7 @@ static int port = 46665;
         [ForgeLog e:@"bind() failed to find free port"];
         return -1;
     }
+    socklen_t len = sizeof(addr);
     if (getsockname(sock, (struct sockaddr*) &addr, &len) != 0) {
         [ForgeLog e:@"getsockname() failed to find free port"];
         return -1;

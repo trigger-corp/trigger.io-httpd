@@ -1,8 +1,8 @@
 {
-	"changes": "* Fixed a bug on Android where content not included in a reload would no longer be available.",
-    "description": "Simple embedded httpd for serving app assets via http:", 
-    "min_platform_version": "v2.2.15", 
-    "namespace": "httpd", 
-    "platform_version": "v2.2.15", 
-    "version": "0.2"
+	"changes": "* Fixed: Free port detection fails on iOS 9.",
+	"description": "Simple embedded httpd for serving app assets via http:",
+	"min_platform_version": "v2.2.15",
+	"namespace": "httpd",
+	"platform_version": "v2.2.15",
+	"version": "0.3"
 }

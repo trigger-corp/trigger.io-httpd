@@ -1,8 +1,6 @@
 {
 	"this_module": {
 		"config": {
-			"port": 46664,
-			"url": "http://localhost:46664/src/index.html"
 		}
 	},
 	"modules": {},
