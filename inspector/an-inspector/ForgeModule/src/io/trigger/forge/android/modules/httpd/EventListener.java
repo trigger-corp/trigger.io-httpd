@@ -3,11 +3,11 @@ package io.trigger.forge.android.modules.httpd;
 import io.trigger.forge.android.core.ForgeApp;
 import io.trigger.forge.android.core.ForgeEventListener;
 import io.trigger.forge.android.core.ForgeLog;
+import io.trigger.forge.android.core.ForgeWebView;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
-import android.webkit.WebView;
 
 public class EventListener extends ForgeEventListener {
 	private static ForgeHttpd httpd = null;
@@ -65,7 +65,7 @@ public class EventListener extends ForgeEventListener {
 
 	
 	@Override
-	public Boolean onLoadInitialPage(final WebView webView) {
+	public Boolean onLoadInitialPage(final ForgeWebView webView) {
 		// Read config
 		String url = "http://localhost:" + port + "/src/index.html";
 		if (ForgeApp.configForPlugin("httpd").has("url")) {

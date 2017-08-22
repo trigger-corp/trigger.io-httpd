@@ -14,3 +14,17 @@ Port
 URL
 :  URL to use as initial app page. Leave empty for default. (recommended).
 
+
+### ::Important::
+
+To use the `httpd` module you will also need to add an entry for the local server to the `core.general.trusted_urls` directive in your app's `src/config.json`:
+
+	"core": {
+		"general": {
+			"trusted_urls": [
+				"http://localhost/*"
+			]
+		}
+	}
+
+If you are using other remote sources in your app you will also have to add entries for those hosts.
