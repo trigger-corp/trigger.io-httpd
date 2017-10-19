@@ -1,14 +1,25 @@
 {
-	"this_module": {
-		"config": {
-		}
-	},
-	"modules": {},
-	"core": {
-		"general": {
-			"trusted_urls": [
-				"http://localhost/*"
-			]
-		}
-	}
+    "this_module": {
+        "config": {
+        }
+    },
+    "modules": {
+        "file": {
+            "disabled": false,
+            "version": "2.17",
+            "config": {
+                "usage_description": "file.usage_description"
+            }
+        }
+    },
+    "core": {
+        "general": {
+            "trusted_urls": [
+                "http://localhost/*"
+            ]
+        },
+        "android": {
+            "remote_debugging": true
+        }
+    }
 }

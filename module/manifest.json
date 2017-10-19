@@ -1,8 +1,8 @@
 {
-	"changes": "* Fixed: Module initialization fails with Crosswalk builds",
-	"description": "Simple embedded httpd for serving app assets via http:",
-	"min_platform_version": "v2.4.5",
-	"namespace": "httpd",
-	"platform_version": "v2.4.5",
-	"version": "0.4"
+    "changes": "* New method: `forge.httpd.normalize(url)`",
+    "description": "Simple embedded httpd for serving app assets via http:",
+    "min_platform_version": "v2.6.2",
+    "namespace": "httpd",
+    "platform_version": "v2.6.2",
+    "version": "0.5"
 }

@@ -170,16 +170,9 @@ public class ForgeHttpd extends NanoHTTPD {
 			// Provide access to files, resize images if specified
 			// File details encoded in query string... decode
 			JsonObject params = new JsonObject();
-			List<NameValuePair> query;
-			try {
-				query = URLEncodedUtils.parse(new URI(uri.toString()), "UTF-8");
-				for (NameValuePair param : query) {
-					params.addProperty(param.getName(), param.getValue());
-				}
-			} catch (URISyntaxException e) {
-				ForgeLog.w("URI Syntax Exception '" + uri.toString() + "':" + e.getLocalizedMessage());
-				return INTERNAL_ERROR(e.getLocalizedMessage());
-			}
+            for (Map.Entry<String, String> param : session.getParms().entrySet()) {
+                params.addProperty(param.getKey(), param.getValue());
+            }
 			fileDescriptor = new ForgeFile(context, params).fd();
 		} else {
 			ForgeLog.w("Unsupported root path: " + uri.getPath());
