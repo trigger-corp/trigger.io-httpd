@@ -62,6 +62,8 @@ forge.httpd = {
             query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
         }
         return query;
-    }
+    },
+
+    _syncmethods: ["normalize"]
 
 };
