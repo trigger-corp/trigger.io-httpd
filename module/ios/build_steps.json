@@ -1,6 +1,16 @@
 [
-	{ "do": { "add_ios_system_framework": "CFNetwork.framework" } },
-	{ "do": { "add_ios_system_framework": "MobileCoreServices.framework" } },
-	{ "do": { "add_ios_system_framework": "libz.dylib" } }
-
+    { "do": { "add_ios_system_framework": "CFNetwork.framework" } },
+    { "do": { "add_ios_system_framework": "MobileCoreServices.framework" } },
+    { "do": { "add_ios_system_framework": "libz.dylib" } },
+    {
+        "do": {
+            "ios_configure_ats": [
+                {
+                    "domain": "localhost",
+                    "NSExceptionAllowsInsecureHTTPLoads": true,
+                    "NSExceptionRequiresForwardSecrecy": true
+                }
+            ]
+        }
+    }
 ]
