@@ -12,11 +12,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
@@ -152,15 +148,17 @@ public class ForgeHttpd extends NanoHTTPD {
 						if (assetManifest.has(fileUrl.substring(fileUrl.lastIndexOf("/") + 1))) {
 							fileDescriptor = ForgeFile.assetForUri(context, Uri.parse("file:///android_asset/src/" + assetManifest.get(fileUrl.substring(fileUrl.lastIndexOf("/") + 1)).getAsString()));
 						} else {
-							ForgeLog.w("Loading of reload updated file failed: " + file.toString());
-							return INTERNAL_ERROR("Loading of reload updated file failed: " + file.toString());
+                            String message = "Loading of reload updated file failed: " + file.toString();
+							ForgeLog.w(message);
+							return INTERNAL_ERROR(message);
 						}
 					} else {
 						fileDescriptor = new AssetFileDescriptor(ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY), 0, AssetFileDescriptor.UNKNOWN_LENGTH);
 					}
 				} catch (IOException e) {
-					ForgeLog.w("Failed to obtain reload asset '" + uri.getPath()  + "': " + e.getLocalizedMessage());
-					return INTERNAL_ERROR("Failed to obtain reload asset '" + uri.getPath()  + "': " + e.getLocalizedMessage());
+                    String message = "Failed to obtain reload asset '" + uri.getPath()  + "': " + e.getLocalizedMessage();
+					ForgeLog.w(message);
+					return INTERNAL_ERROR(message);
 				}
 			} else {
 				// Otherwise grab from assets
@@ -173,10 +171,18 @@ public class ForgeHttpd extends NanoHTTPD {
             for (Map.Entry<String, String> param : session.getParms().entrySet()) {
                 params.addProperty(param.getKey(), param.getValue());
             }
-			fileDescriptor = new ForgeFile(context, params).fd();
+            try {
+                ForgeFile file = new ForgeFile(context, params);
+                fileDescriptor = file.fd();
+            } catch (Exception e) {
+                String message = "Exception accessing ForgeFile file descriptor '" + uri.getPath() + "': " + e.getLocalizedMessage();
+                ForgeLog.e(message);
+                return INTERNAL_ERROR(message);
+            }
 		} else {
-			ForgeLog.w("Unsupported root path: " + uri.getPath());
-			return FORBIDDEN("Unsupported root path");
+            String message = "Unsupported root path: " + uri.getPath();
+			ForgeLog.w(message);
+			return FORBIDDEN(message);
 		}
 		
 		// check that we have a valid fileDescriptor
@@ -190,8 +196,9 @@ public class ForgeHttpd extends NanoHTTPD {
 		try {
 			assetStream = fileDescriptor.createInputStream();
 		} catch (IOException e) {
-			ForgeLog.w("Couldn't open input stream for URL '" + uri.getPath() + "': " + e);
-			return INTERNAL_ERROR("Couldn't open input stream for URL '" + uri.getPath() + "': " + e);
+            String message = "Couldn't open input stream for URL '" + uri.getPath() + "': " + e.getLocalizedMessage();
+			ForgeLog.w(message);
+			return INTERNAL_ERROR(message);
 		}
 
 		// send response

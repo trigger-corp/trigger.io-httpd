@@ -5,6 +5,33 @@ module("forge.httpd");
 
 if (typeof forge["file"] !== "undefined") {
 
+    asyncTest("Test that we can read device images", 1, function () {
+        forge.file.getImage({
+            height: 512,
+            width: 512
+        }, function (file) {
+            forge.file.URL(file, function (url) {
+                var normalized_url = forge.httpd.normalize(url);
+                var question = "Can you see this image: <br><img src='" + normalized_url + "' style='max-width: 100px; max-height: 100px'>";
+                askQuestion(question, {
+                    Yes: function () {
+                        ok(true, "success with getImage");
+                        start();
+                    },
+                    No: function () {
+                        ok(false, "failure with getImage");
+                        start();
+                    }
+                });
+            }, function (error) {
+                forge.logging.error("forge.file.URL failed: ", error);
+            });
+        }, function (error) {
+            forge.logging.error("forge.file.getImage failed: ", error);
+        });
+    });
+
+
     asyncTest("Test that we can read cached URL's from /file", 1, function () {
         var url = "https://trigger.io/forge-static/img/trigger-light/trigger-io-command-line.jpg";
         forge.file.cacheURL(url, function (file) {

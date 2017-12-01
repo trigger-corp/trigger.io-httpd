@@ -39,7 +39,6 @@ forge.httpd = {
             a.protocol = "http:"; // stop host part from being interpreted as pathname
             var path = a.pathname;
             path = path.replace("___", "?");
-            path = decodeURIComponent(path);
             a.href = path;
             a.protocol = window.location.protocol;
             a.hostname = window.location.hostname;
