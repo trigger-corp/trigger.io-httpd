@@ -1,8 +1,8 @@
 {
-    "changes": "* Fixed: Android media store content URLs were not being normalized correctly",
-    "description": "Simple embedded httpd for serving app assets via http:",
-    "min_platform_version": "v2.6.3",
+    "changes": "* Add https support",
+    "description": "Simple embedded httpd for serving app assets via http: or https:",
+    "min_platform_version": "v2.6.9",
     "namespace": "httpd",
-    "platform_version": "v2.6.3",
-    "version": "0.8"
+    "platform_version": "v2.6.9",
+    "version": "0.9"
 }

@@ -2,15 +2,31 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
-		"port": {
-			"required": false,
-			"type": "number",
-			"description": "Port to launch httpd on. Leave empty to automatically choose a free port (recommended). Set to 0 to disable httpd."
-		},
-		"url": {
-			"required": false,
-			"type": "string",
-			"description": "URL to use as initial app page. Leave empty for default. (recommended)."
-		}
-	}
+        "port": {
+            "required": false,
+            "type": "number",
+            "description": "Port to launch httpd on. Leave empty to automatically choose a free port (recommended). Set to 0 to disable httpd."
+        },
+        "url": {
+            "required": false,
+            "type": "string",
+            "description": "URL to use as initial app page. Leave empty for default. (recommended)."
+        },
+        "certificate_path": {
+            "type": "string",
+            "blank": false,
+            "required": false,
+            "_filepicker": true,
+            "title": "Certificate Path",
+            "description": "Path to p12 certificate file."
+        },
+        "certificate_password": {
+            "type": "string",
+            "blank": false,
+            "required": false,
+            "_password": true,
+            "title": "Certificate Password",
+            "description": "Password for p12 certificate file."
+        }
+    }
 }

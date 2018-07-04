@@ -1,5 +1,5 @@
 .trigger/
-    
+
 inspector/an-inspector/.hash
 inspector/an-inspector/ForgeInspector/
 inspector/an-inspector/ForgeModule/.settings
@@ -10,7 +10,17 @@ inspector/an-inspector/ForgeModule/trigger-gen
 inspector/an-inspector/ForgeModule/.classpath
 inspector/an-inspector/ForgeModule/.project
 inspector/an-inspector/ForgeModule/bin
-    
+inspector/an-inspector/.gradle
+inspector/an-inspector/.idea
+inspector/an-inspector/gradle
+inspector/an-inspector/gradlew
+inspector/an-inspector/gradlew.bat
+inspector/an-inspector/ForgeModule/build
+inspector/an-inspector/ForgeModule/build.gradle
+inspector/an-inspector/build.gradle
+inspector/an-inspector/gradle.properties
+inspector/an-inspector/settings.gradle
+
 inspector/ios-inspector/.hash
 inspector/ios-inspector/build
 inspector/ios-inspector/ForgeCore.bundle
@@ -29,6 +39,7 @@ inspector/ios-inspector.*
 *.ap_
 *.dex
 *.class
+*.iml
 local.properties
 xcuserdata
 xcschemes

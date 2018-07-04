@@ -2,22 +2,22 @@
 
 module("forge.httpd");
 
-asyncTest("Test that content is being served via http", 1, function () {
-    if (window.location.protocol == "http:") {
-        ok(true, "Expected 'http:'");
+asyncTest("Test that content is being served via https", 1, function () {
+    if (window.location.protocol == "https:") {
+        ok(true, "Expected 'https:'");
         start();
     } else {
-        ok(false, "Expected 'http:', got: " + window.location.protocol);
+        ok(false, "Expected 'https:', got: " + window.location.protocol);
         start();
     }
 });
 
 asyncTest("Test that content is being served from localhost", 1, function () {
-    if (window.location.hostname == "localhost") {
-        ok(true, "Expected 'localhost'");
+    if (window.location.hostname == "toolkit-local.com") {
+        ok(true, "Expected 'toolkit-local.com'");
         start();
     } else {
-        ok(false, "Expected 'localhost', got: " + window.location.hostname);
+        ok(false, "Expected 'toolkit-local.com', got: " + window.location.hostname);
         start();
     }
 });
