@@ -126,6 +126,7 @@ static int port = 46665;
 + (NSNumber*) onLoadInitialPage {
 
     if (![httpd_EventListener startServer]) {
+        [ForgeLog e:@"Failed to start server for httpd module"];
         return @NO;
     }
 

@@ -12,6 +12,7 @@ inspector/an-inspector/ForgeModule/.project
 inspector/an-inspector/ForgeModule/bin
 inspector/an-inspector/.gradle
 inspector/an-inspector/.idea
+inspector/an-inspector/build
 inspector/an-inspector/gradle
 inspector/an-inspector/gradlew
 inspector/an-inspector/gradlew.bat
