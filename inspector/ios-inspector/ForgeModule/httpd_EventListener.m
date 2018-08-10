@@ -40,6 +40,10 @@ static int port = 46665;
 
 
 + (bool) startServer {
+    if (server != nil) {
+        return YES;
+    }
+
     NSError* error;
 
     // Read config
