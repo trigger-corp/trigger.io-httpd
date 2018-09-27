@@ -111,7 +111,7 @@ static int port = 46665;
 
 // = Life-cycle ===============================================================
 
-+ (void)applicationDidBecomeActive:(UIApplication *)application {
++ (void)applicationWillEnterForeground:(UIApplication *)application {
     [httpd_EventListener startServer];
 }
 

@@ -2,14 +2,14 @@
     "this_module": {
         "config": {
             "port": 46664,
-            "url": "https://toolkit-local.com:46664/src/index.html",
-            "certificate_path": "fixtures/httpd/identity.p12",
+            "url": "https://localhost:46664/src/index.html",
+            "certificate_path": "fixtures/httpd/localhost.p12",
             "certificate_password": "insecure"
         }
     },
     "modules": {
         "file": {
-            "disabled": false,
+            "disabled": true,
             "version": "2.17",
             "config": {
                 "usage_description": "file.usage_description"
@@ -20,9 +20,7 @@
         "general": {
             "trusted_urls": [
                 "http://localhost/*",
-                "https://localhost/*",
-                "http://toolkit-local.com/*",
-                "https://toolkit-local.com/*"
+                "https://localhost/*"
             ]
         },
         "android": {
