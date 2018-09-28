@@ -1,8 +1,8 @@
 {
-    "changes": "* Add https support",
+    "changes": "* Resolve life-cycle dependency between httpd server startup and forge.event.appResumed",
     "description": "Simple embedded httpd for serving app assets via http: or https:",
-    "min_platform_version": "v2.6.9",
+    "min_platform_version": "v2.7.1",
     "namespace": "httpd",
-    "platform_version": "v2.6.9",
-    "version": "0.9"
+    "platform_version": "v2.7.1",
+    "version": "1.0"
 }

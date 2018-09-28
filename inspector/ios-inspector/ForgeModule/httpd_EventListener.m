@@ -111,8 +111,12 @@ static int port = 46665;
 
 // = Life-cycle ===============================================================
 
-+ (void)applicationDidBecomeActive:(UIApplication *)application {
++ (void)applicationWillEnterForeground:(UIApplication *)application {
     [httpd_EventListener startServer];
+    // TODO This is a particularly ugly hack to make sure the app can access
+    //      content served by this module in the appResumed handler
+    NSLog(@"httpd module started, now firing event.appResumed");
+    [[ForgeApp sharedApp] event:@"event.appResumed" withParam:[NSNull null]];
 }
 
 
