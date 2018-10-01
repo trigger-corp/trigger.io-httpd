@@ -171,4 +171,20 @@ static int port = 46665;
     NSLog(@"httpd serverDidStopListening");
 }
 
+- (void)server:(CRServer *)server didAcceptConnection:(CRConnection *)connection {
+    NSLog(@"httpd didAcceptConnection\t%lu", connection.hash);
+}
+
+- (void)server:(CRServer *)server didReceiveRequest:(CRRequest *)request {
+    NSLog(@"httpd didReceiveRequest\t%lu %@", request.connection.hash, request.URL);
+}
+
+- (void)server:(CRServer *)server didFinishRequest:(CRRequest *)request {
+    NSLog(@"httpd didFinishRequest\t%lu %@", request.connection.hash, request.URL);
+}
+
+- (void)server:(CRServer  *)server didCloseConnection:(CRConnection *)connection {
+    NSLog(@"httpd didCloseConnection\t%lu", connection.hash);
+}
+
 @end
