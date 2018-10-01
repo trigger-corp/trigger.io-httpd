@@ -13,6 +13,9 @@ static ServerDelegate* delegate = nil;
 static CRHTTPServer*   server = nil;
 static int port = 46665;
 
+static bool isOnLoadInitialPage = NO;
+static bool isApplicationWillEnterForeground = NO;
+
 
 // = Helpers ==================================================================
 
@@ -115,8 +118,8 @@ static int port = 46665;
 
 + (void)applicationWillEnterForeground:(UIApplication *)application {
     [httpd_EventListener startServer];
+    isApplicationWillEnterForeground = YES;
 }
-
 
 + (void)applicationWillResignActive:(UIApplication *)application {
     [httpd_EventListener stopServer];
@@ -130,41 +133,51 @@ static int port = 46665;
 // = onLoadInitialPage ========================================================
 
 + (NSNumber*) onLoadInitialPage {
-
     if (![httpd_EventListener startServer]) {
         [ForgeLog e:@"Failed to start server for httpd module"];
         return @NO;
     }
-
-    NSString *url;
-    if (server.isSecure) {
-        url = [NSString stringWithFormat:@"https://127.0.0.1:%d/src/index.html", port];
-    } else {
-        url = [NSString stringWithFormat:@"http://127.0.0.1:%d/src/index.html", port];
-    }
-
-    if ([[[ForgeApp sharedApp] configForModule:@"httpd"] objectForKey:@"url"]) {
-        url = [[[ForgeApp sharedApp] configForModule:@"httpd"] objectForKey:@"url"];
-    }
-
-    // load initial page
-    [ForgeLog d:[NSString stringWithFormat:@"Loading initial page: %@", url]];
-    [[[ForgeApp sharedApp] viewController] loadURL:[NSURL URLWithString: url]];
-    
+    isOnLoadInitialPage = YES;
     return @YES;
 }
 
 @end
 
 
+// = CRServerDelegate =========================================================
+
 @implementation ServerDelegate
 
 - (void)serverDidStartListening:(CRServer *)server {
     NSLog(@"httpd serverDidStartListening");
-    // TODO This is a particularly ugly hack to make sure the app can access
-    //      content served by this module in the appResumed handler
-    NSLog(@"httpd module started, now firing event.appResumed");
-    [[ForgeApp sharedApp] event:@"event.appResumed" withParam:[NSNull null]];
+
+    // Handle onLoadInitialPage
+    if (isOnLoadInitialPage == YES) {
+        CRHTTPServer *crhttpserver = (CRHTTPServer*)server;
+        NSString *url;
+        if (crhttpserver.isSecure) {
+            url = [NSString stringWithFormat:@"https://127.0.0.1:%d/src/index.html", port];
+        } else {
+            url = [NSString stringWithFormat:@"http://127.0.0.1:%d/src/index.html", port];
+        }
+        if ([[[ForgeApp sharedApp] configForModule:@"httpd"] objectForKey:@"url"]) {
+            url = [[[ForgeApp sharedApp] configForModule:@"httpd"] objectForKey:@"url"];
+        }
+        [ForgeLog d:[NSString stringWithFormat:@"Loading initial page: %@", url]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[ForgeApp sharedApp] viewController] loadURL:[NSURL URLWithString: url]];
+        });
+        isOnLoadInitialPage = NO;
+
+    }
+
+    if (isApplicationWillEnterForeground == YES) {
+        // TODO This is a particularly ugly hack to make sure the app can access
+        //      content served by this module in the appResumed handler
+        NSLog(@"httpd module started, now firing event.appResumed");
+        [[ForgeApp sharedApp] event:@"event.appResumed" withParam:[NSNull null]];
+        isApplicationWillEnterForeground  = NO;
+    }
 }
 
 - (void)serverDidStopListening:(CRServer *)server {
@@ -172,19 +185,19 @@ static int port = 46665;
 }
 
 - (void)server:(CRServer *)server didAcceptConnection:(CRConnection *)connection {
-    NSLog(@"httpd didAcceptConnection\t%lu", connection.hash);
+    NSLog(@"httpd didAcceptConnection\t%lu", (unsigned long)connection.hash);
 }
 
 - (void)server:(CRServer *)server didReceiveRequest:(CRRequest *)request {
-    NSLog(@"httpd didReceiveRequest\t%lu %@", request.connection.hash, request.URL);
+    NSLog(@"httpd didReceiveRequest\t\t%lu %@", (unsigned long)request.connection.hash, request.URL);
 }
 
 - (void)server:(CRServer *)server didFinishRequest:(CRRequest *)request {
-    NSLog(@"httpd didFinishRequest\t%lu %@", request.connection.hash, request.URL);
+    NSLog(@"httpd didFinishRequest\t\t%lu %@", (unsigned long)request.connection.hash, request.URL);
 }
 
 - (void)server:(CRServer  *)server didCloseConnection:(CRConnection *)connection {
-    NSLog(@"httpd didCloseConnection\t%lu", connection.hash);
+    NSLog(@"httpd didCloseConnection\t%lu", (unsigned long)connection.hash);
 }
 
 @end

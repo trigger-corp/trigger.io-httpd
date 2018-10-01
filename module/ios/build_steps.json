@@ -13,10 +13,10 @@
             ]
         }
     },
-    { "do": { "set_in_info_plist": { "key": "CRHTTPConnectionReadHeaderTimeout",   "value":  60 } } },
-    { "do": { "set_in_info_plist": { "key": "CRHTTPConnectionReadBodyTimeout",     "value":  60 } } },
-    { "do": { "set_in_info_plist": { "key": "CRConnectionKeepAliveTimeout",        "value": 120 } } },
-    { "do": { "set_in_info_plist": { "key": "CRConnectionReadTimeoutKey",          "value":  60 } } },
-    { "do": { "set_in_info_plist": { "key": "CRConnectionWriteTimeoutKey",         "value":  60 } } },
-    { "do": { "set_in_info_plist": { "key": "CRConnectionMaxKeepAliveConnections", "value":  50 } } }
+    { "do": { "set_in_info_plist": { "key": "CRHTTPConnectionReadHeaderTimeout",   "value":  4  } } },
+    { "do": { "set_in_info_plist": { "key": "CRHTTPConnectionReadBodyTimeout",     "value":  4  } } },
+    { "do": { "set_in_info_plist": { "key": "CRConnectionKeepAliveTimeout",        "value":  30 } } },
+    { "do": { "set_in_info_plist": { "key": "CRConnectionReadTimeoutKey",          "value":  10 } } },
+    { "do": { "set_in_info_plist": { "key": "CRConnectionWriteTimeoutKey",         "value":  10 } } },
+    { "do": { "set_in_info_plist": { "key": "CRConnectionMaxKeepAliveConnections", "value":  10 } } }
 ]
