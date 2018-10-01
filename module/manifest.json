@@ -1,8 +1,8 @@
 {
-    "changes": "* Fix race-condition during iOS startup",
+    "changes": "* Added even more iOS Logging",
     "description": "Simple embedded httpd for serving app assets via http: or https:",
     "min_platform_version": "v2.7.1",
     "namespace": "httpd",
     "platform_version": "v2.7.1",
-    "version": "1.0.3"
+    "version": "1.0.4"
 }

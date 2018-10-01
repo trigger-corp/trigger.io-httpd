@@ -44,7 +44,9 @@ static bool isApplicationWillEnterForeground = NO;
 
 
 + (bool) startServer {
+    NSLog(@"httpd startServer");
     if (server != nil) {
+        NSLog(@"httpd startServer server already started");
         return YES;
     }
 
@@ -101,31 +103,38 @@ static bool isApplicationWillEnterForeground = NO;
         [ForgeLog d:[NSString stringWithFormat:@"Started httpd on port: %d", port]];
     }
 
+    NSLog(@"httpd startServer started");
+
     return YES;
 }
 
 
 + (void) stopServer {
+    NSLog(@"httpd stopServer");
     if (server == nil) {
         [ForgeLog e:@"Failed to stop httpd: Server is not initialized"];
     }
     [server stopListening];
     server = nil;
+    NSLog(@"httpd stopServer stopped");
 }
 
 
 // = Life-cycle ===============================================================
 
 + (void)applicationWillEnterForeground:(UIApplication *)application {
+    NSLog(@"httpd applicationWillEnterForeground");
     [httpd_EventListener startServer];
     isApplicationWillEnterForeground = YES;
 }
 
 + (void)applicationWillResignActive:(UIApplication *)application {
+    NSLog(@"httpd applicationWillResignActive");
     [httpd_EventListener stopServer];
 }
 
 + (void)applicationWillTerminate:(UIApplication *)application {
+    NSLog(@"httpd applicationWillTerminate");
     [httpd_EventListener stopServer];
 }
 
@@ -133,6 +142,7 @@ static bool isApplicationWillEnterForeground = NO;
 // = onLoadInitialPage ========================================================
 
 + (NSNumber*) onLoadInitialPage {
+    NSLog(@"httpd onLoadInitialPage");
     if (![httpd_EventListener startServer]) {
         [ForgeLog e:@"Failed to start server for httpd module"];
         return @NO;
@@ -168,7 +178,6 @@ static bool isApplicationWillEnterForeground = NO;
             [[[ForgeApp sharedApp] viewController] loadURL:[NSURL URLWithString: url]];
         });
         isOnLoadInitialPage = NO;
-
     }
 
     if (isApplicationWillEnterForeground == YES) {
