@@ -9,7 +9,8 @@
 
 @implementation httpd_EventListener
 
-static CRHTTPServer* server = nil;
+static ServerDelegate* delegate = nil;
+static CRHTTPServer*   server = nil;
 static int port = 46665;
 
 
@@ -62,7 +63,8 @@ static int port = 46665;
     }
 
     // Create server
-    server = [[CRHTTPServer alloc] init];
+    delegate = [[ServerDelegate alloc] init];
+    server   = [[CRHTTPServer alloc] initWithDelegate:delegate];
 
     // Configure SSL
     NSString *certificate_path     = [[[ForgeApp sharedApp] configForModule:@"httpd"] objectForKey:@"certificate_path"];
@@ -113,10 +115,6 @@ static int port = 46665;
 
 + (void)applicationWillEnterForeground:(UIApplication *)application {
     [httpd_EventListener startServer];
-    // TODO This is a particularly ugly hack to make sure the app can access
-    //      content served by this module in the appResumed handler
-    NSLog(@"httpd module started, now firing event.appResumed");
-    [[ForgeApp sharedApp] event:@"event.appResumed" withParam:[NSNull null]];
 }
 
 
@@ -154,6 +152,23 @@ static int port = 46665;
     [[[ForgeApp sharedApp] viewController] loadURL:[NSURL URLWithString: url]];
     
     return @YES;
+}
+
+@end
+
+
+@implementation ServerDelegate
+
+- (void)serverDidStartListening:(CRServer *)server {
+    NSLog(@"httpd serverDidStartListening");
+    // TODO This is a particularly ugly hack to make sure the app can access
+    //      content served by this module in the appResumed handler
+    NSLog(@"httpd module started, now firing event.appResumed");
+    [[ForgeApp sharedApp] event:@"event.appResumed" withParam:[NSNull null]];
+}
+
+- (void)serverDidStopListening:(CRServer *)server {
+    NSLog(@"httpd serverDidStopListening");
 }
 
 @end
