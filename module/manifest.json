@@ -1,8 +1,8 @@
 {
-    "changes": "* Added even more iOS Logging",
+    "changes": "* Handle case where entering appswitcher stops server but returning to app does not restart it",
     "description": "Simple embedded httpd for serving app assets via http: or https:",
     "min_platform_version": "v2.7.1",
     "namespace": "httpd",
     "platform_version": "v2.7.1",
-    "version": "1.0.4"
+    "version": "1.0.5"
 }

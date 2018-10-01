@@ -128,6 +128,11 @@ static bool isApplicationWillEnterForeground = NO;
     isApplicationWillEnterForeground = YES;
 }
 
++ (void)applicationDidBecomeActive:(UIApplication *)application {
+    NSLog(@"httpd applicationDidBecomeActive");
+    [httpd_EventListener startServer];
+}
+
 + (void)applicationWillResignActive:(UIApplication *)application {
     NSLog(@"httpd applicationWillResignActive");
     [httpd_EventListener stopServer];
