@@ -44,7 +44,9 @@ static bool isApplicationWillEnterForeground = NO;
 
 
 + (bool) startServer {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd startServer");
+#endif // DEBUG_HTTPD
     if (server != nil) {
         NSLog(@"httpd startServer server already started");
         return YES;
@@ -103,43 +105,52 @@ static bool isApplicationWillEnterForeground = NO;
         [ForgeLog d:[NSString stringWithFormat:@"Started httpd on port: %d", port]];
     }
 
-    NSLog(@"httpd startServer started");
-
     return YES;
 }
 
 
 + (void) stopServer {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd stopServer");
+#endif // DEBUG_HTTPD
     if (server == nil) {
         [ForgeLog e:@"Failed to stop httpd: Server is not initialized"];
     }
     [server stopListening];
     server = nil;
-    NSLog(@"httpd stopServer stopped");
 }
 
 
 // = Life-cycle ===============================================================
 
 + (void)applicationWillEnterForeground:(UIApplication *)application {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd applicationWillEnterForeground");
+#endif // DEBUG_HTTPD
     [httpd_EventListener startServer];
     isApplicationWillEnterForeground = YES;
 }
 
 + (void)applicationDidBecomeActive:(UIApplication *)application {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd applicationDidBecomeActive");
-    [httpd_EventListener startServer];
+#endif // DEBUG_HTTPD
+    if (server == nil) {
+        [httpd_EventListener startServer];
+    }
 }
 
 + (void)applicationWillResignActive:(UIApplication *)application {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd applicationWillResignActive");
+#endif // DEBUG_HTTPD
     [httpd_EventListener stopServer];
 }
 
 + (void)applicationWillTerminate:(UIApplication *)application {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd applicationWillTerminate");
+#endif // DEBUG_HTTPD
     [httpd_EventListener stopServer];
 }
 
@@ -147,7 +158,6 @@ static bool isApplicationWillEnterForeground = NO;
 // = onLoadInitialPage ========================================================
 
 + (NSNumber*) onLoadInitialPage {
-    NSLog(@"httpd onLoadInitialPage");
     if (![httpd_EventListener startServer]) {
         [ForgeLog e:@"Failed to start server for httpd module"];
         return @NO;
@@ -164,7 +174,9 @@ static bool isApplicationWillEnterForeground = NO;
 @implementation ServerDelegate
 
 - (void)serverDidStartListening:(CRServer *)server {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd serverDidStartListening");
+#endif // DEBUG_HTTPD
 
     // Handle onLoadInitialPage
     if (isOnLoadInitialPage == YES) {
@@ -194,6 +206,8 @@ static bool isApplicationWillEnterForeground = NO;
     }
 }
 
+#ifdef DEBUG_HTTPD
+
 - (void)serverDidStopListening:(CRServer *)server {
     NSLog(@"httpd serverDidStopListening");
 }
@@ -213,5 +227,7 @@ static bool isApplicationWillEnterForeground = NO;
 - (void)server:(CRServer  *)server didCloseConnection:(CRConnection *)connection {
     NSLog(@"httpd didCloseConnection\t%lu", (unsigned long)connection.hash);
 }
+
+#endif
 
 @end
