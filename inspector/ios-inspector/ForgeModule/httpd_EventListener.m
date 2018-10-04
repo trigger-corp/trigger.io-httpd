@@ -127,8 +127,16 @@ static bool isApplicationWillEnterForeground = NO;
 #ifdef DEBUG_HTTPD
     NSLog(@"httpd applicationWillEnterForeground");
 #endif // DEBUG_HTTPD
-    [httpd_EventListener startServer];
+    if (server == nil) {
+        [httpd_EventListener startServer];
+    }
     isApplicationWillEnterForeground = YES;
+}
+
++ (void)applicationWillResignActive:(UIApplication *)application {
+#ifdef DEBUG_HTTPD
+    NSLog(@"httpd applicationWillResignActive");
+#endif // DEBUG_HTTPD
 }
 
 + (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -140,9 +148,9 @@ static bool isApplicationWillEnterForeground = NO;
     }
 }
 
-+ (void)applicationWillResignActive:(UIApplication *)application {
++ (void)applicationDidEnterBackground:(UIApplication *)application {
 #ifdef DEBUG_HTTPD
-    NSLog(@"httpd applicationWillResignActive");
+    NSLog(@"httpd applicationDidEnterBackground");
 #endif // DEBUG_HTTPD
     [httpd_EventListener stopServer];
 }
@@ -206,11 +214,14 @@ static bool isApplicationWillEnterForeground = NO;
     }
 }
 
+- (void)serverDidStopListening:(CRServer *)s {
 #ifdef DEBUG_HTTPD
-
-- (void)serverDidStopListening:(CRServer *)server {
     NSLog(@"httpd serverDidStopListening");
+#endif // DEBUG_HTTPD
+    server = nil;
 }
+
+#ifdef DEBUG_HTTPD
 
 - (void)server:(CRServer *)server didAcceptConnection:(CRConnection *)connection {
     NSLog(@"httpd didAcceptConnection\t%lu", (unsigned long)connection.hash);
