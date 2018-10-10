@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7125B39420EB955E00430E43 /* libCriollo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7125B39120EB955E00430E43 /* libCriollo.a */; };
-		7125B39520EB955E00430E43 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7125B39220EB955E00430E43 /* libcrypto.a */; };
-		7125B39620EB955E00430E43 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7125B39320EB955E00430E43 /* libssl.a */; };
 		B31B6D5215C13D5200854074 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31B6D5115C13D5200854074 /* Foundation.framework */; };
 		B31B6D6F15C1467100854074 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31B6D6E15C1467100854074 /* CoreFoundation.framework */; };
 		B3CC61F21716ECB500A1A8EF /* httpd_API.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CC61F01716ECB500A1A8EF /* httpd_API.m */; };
@@ -23,8 +21,6 @@
 /* Begin PBXFileReference section */
 		712584281F98A2080014BD29 /* placeholder.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = placeholder.plist; sourceTree = "<group>"; };
 		7125B39120EB955E00430E43 /* libCriollo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCriollo.a; path = Criollo.framework/libCriollo.a; sourceTree = "<group>"; };
-		7125B39220EB955E00430E43 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = Criollo.framework/libcrypto.a; sourceTree = "<group>"; };
-		7125B39320EB955E00430E43 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = Criollo.framework/libssl.a; sourceTree = "<group>"; };
 		B31B6D4E15C13D5200854074 /* libForgeModule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libForgeModule.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B31B6D5115C13D5200854074 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B31B6D6D15C1467100854074 /* httpd.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = httpd.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,14 +40,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7125B39620EB955E00430E43 /* libssl.a in Frameworks */,
 				B3FC524815C17B2C003574D9 /* SystemConfiguration.framework in Frameworks */,
 				B3FC524215C177EA003574D9 /* AssetsLibrary.framework in Frameworks */,
 				B3FC51FF15C1523D003574D9 /* CoreGraphics.framework in Frameworks */,
 				B3FC51F815C151E5003574D9 /* UIKit.framework in Frameworks */,
 				7125B39420EB955E00430E43 /* libCriollo.a in Frameworks */,
 				B31B6D5215C13D5200854074 /* Foundation.framework in Frameworks */,
-				7125B39520EB955E00430E43 /* libcrypto.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,8 +64,6 @@
 			isa = PBXGroup;
 			children = (
 				7125B39120EB955E00430E43 /* libCriollo.a */,
-				7125B39220EB955E00430E43 /* libcrypto.a */,
-				7125B39320EB955E00430E43 /* libssl.a */,
 			);
 			name = Criollo;
 			sourceTree = "<group>";
