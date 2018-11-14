@@ -166,11 +166,11 @@ static bool isApplicationWillEnterForeground = NO;
 // = onLoadInitialPage ========================================================
 
 + (NSNumber*) onLoadInitialPage {
+    isOnLoadInitialPage = YES;
     if (![httpd_EventListener startServer]) {
         [ForgeLog e:@"Failed to start server for httpd module"];
         return @NO;
     }
-    isOnLoadInitialPage = YES;
     return @YES;
 }
 
@@ -221,24 +221,28 @@ static bool isApplicationWillEnterForeground = NO;
     server = nil;
 }
 
-#ifdef DEBUG_HTTPD
-
 - (void)server:(CRServer *)server didAcceptConnection:(CRConnection *)connection {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd didAcceptConnection\t%lu", (unsigned long)connection.hash);
+#endif // DEBUG_HTTPD
 }
 
 - (void)server:(CRServer *)server didReceiveRequest:(CRRequest *)request {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd didReceiveRequest\t\t%lu %@", (unsigned long)request.connection.hash, request.URL);
+#endif // DEBUG_HTTPD
 }
 
 - (void)server:(CRServer *)server didFinishRequest:(CRRequest *)request {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd didFinishRequest\t\t%lu %@", (unsigned long)request.connection.hash, request.URL);
+#endif // DEBUG_HTTPD
 }
 
 - (void)server:(CRServer  *)server didCloseConnection:(CRConnection *)connection {
+#ifdef DEBUG_HTTPD
     NSLog(@"httpd didCloseConnection\t%lu", (unsigned long)connection.hash);
+#endif // DEBUG_HTTPD
 }
-
-#endif
 
 @end
